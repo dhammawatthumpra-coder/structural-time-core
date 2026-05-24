@@ -1,0 +1,30 @@
+site_name: StructuralTime-Core
+site_description: A modular, domain-agnostic Python library implementing the Core Structural Time Ontology and Dynamics framework.
+site_author: dhammawatthumpra-coder
+repo_name: dhammawatthumpra-coder/structural-time-core
+repo_url: https://github.com/dhammawatthumpra-coder/structural-time-core
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+
+nav:
+  - Home: index.md
+  - API Guide: api.md
+  - Visualization Examples: examples.md

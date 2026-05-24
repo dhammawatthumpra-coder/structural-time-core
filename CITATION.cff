@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it as below."
+authors:
+- name: "dhammawatthumpra-coder"
+title: "structural-time-core: A Modular Python Library for the Core Structural Time Framework"
+version: "0.1.0"
+date-released: 2026-05-25
+url: "https://github.com/dhammawatthumpra-coder/structural-time-core"
+keywords:
+  - structural-time
+  - ontology
+  - complex-systems
+  - information-dynamics
+  - phase-transitions
+  - mathematical-physics
