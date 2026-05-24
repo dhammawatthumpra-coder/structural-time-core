@@ -21,7 +21,21 @@ The library is organized into four main functional modules:
 
 ## 2. Installation & Quick Start
 
-Simply copy the `structural_time_core` package folder into your Python project directory.
+You can install this library locally in editable mode (recommended for development) or directly via pip:
+
+```bash
+# Clone the repository and install in editable mode
+git clone https://github.com/dhammawatthumpra-coder/structural-time-core.git
+cd structural-time-core
+pip install -e .
+```
+
+Or install it directly from GitHub:
+```bash
+pip install git+https://github.com/dhammawatthumpra-coder/structural-time-core.git
+```
+
+Once installed, import the modules in Python:
 
 ```python
 import numpy as np

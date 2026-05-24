@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "structural-time-core"
+version = "0.1.0"
+description = "A modular, domain-agnostic Python library implementing the Core Structural Time framework."
+readme = "README.md"
+authors = [
+    { name = "dhammawatthumpra-coder" }
+]
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+dependencies = [
+    "numpy>=1.20.0",
+    "scikit-learn>=1.0.0"
+]
+
+[tool.setuptools]
+package-dir = {"structural_time_core" = "."}
+packages = [
+    "structural_time_core",
+    "structural_time_core.adapters",
+    "structural_time_core.ontology",
+    "structural_time_core.dynamics",
+    "structural_time_core.analytics"
+]

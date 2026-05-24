@@ -19,7 +19,21 @@
 
 ## 2. การติดตั้งใช้งาน (Quick Start)
 
-สามารถคัดลอกโฟลเดอร์ `structural_time_core` ไปวางไว้ในโปรเจกต์ของคุณแล้วนำเข้าใช้งานผ่าน Python:
+คุณสามารถติดตั้งไลบรารีนี้ในเครื่องแบบ Editable mode (แนะนำสำหรับการทดสอบพัฒนา) หรือติดตั้งโดยตรงผ่าน pip:
+
+```bash
+# โคลนโปรเจกต์และติดตั้งในเครื่อง
+git clone https://github.com/dhammawatthumpra-coder/structural-time-core.git
+cd structural-time-core
+pip install -e .
+```
+
+หรือสามารถติดตั้งโดยตรงจาก GitHub:
+```bash
+pip install git+https://github.com/dhammawatthumpra-coder/structural-time-core.git
+```
+
+เมื่อติดตั้งเสร็จแล้ว นำเข้าใช้งานผ่าน Python:
 
 ```python
 import numpy as np
