@@ -1,6 +1,6 @@
 # StructuralTime-Core v0.1 (MVP)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20371011.svg)](https://doi.org/10.5281/zenodo.20371011)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20371010.svg)](https://doi.org/10.5281/zenodo.20371010)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dhammawatthumpra-coder/structural-time-core/blob/main/QuickStart.ipynb)
 
 A modular, domain-agnostic Python library implementing the **Core Structural Time** framework. It bridges abstract logical constraints (Level A Ontology) with continuous information-dynamic equations (Level B Dynamics) and behavioral regime classification.
