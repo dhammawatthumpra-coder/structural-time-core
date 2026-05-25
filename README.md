@@ -1,5 +1,7 @@
 # StructuralTime-Core v0.1 (MVP)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20371011.svg)](https://doi.org/10.5281/zenodo.20371011)
+
 A modular, domain-agnostic Python library implementing the **Core Structural Time** framework. It bridges abstract logical constraints (Level A Ontology) with continuous information-dynamic equations (Level B Dynamics) and behavioral regime classification.
 
 This framework allows researchers across different fields (e.g., Artificial Intelligence, Sociology, Biology, Astrophysics) to map domain-specific raw telemetry into information parameters, helping detect phase transitions and system stability.
