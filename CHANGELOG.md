@@ -5,9 +5,9 @@ All notable changes to the `structural-time-core` project will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - Post-v0.1.1 Maintenance
+## [0.1.2] - 2026-05-25
 
-These changes are committed directly to `main` without creating a new official tag/release (maintaining v0.1.1 release optics).
+These changes are published as a maintenance release addressing feedback on the core library architecture and academic framing.
 
 ### Added
 - Created `examples/sociology_adapter_demo.py` containing the relocated `SociologyAdapter` with active runtime warnings and a standalone runnable demonstration block.
