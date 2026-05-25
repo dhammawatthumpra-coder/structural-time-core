@@ -3,6 +3,14 @@ import numpy as np
 from structural_time_core.analytics import TheoryGuidedClustering, VisualizationAPI
 
 class TestAnalytics(unittest.TestCase):
+    def test_theory_driven_classification(self):
+        clustering = TheoryGuidedClustering()
+        self.assertEqual(clustering.classify_by_theory(E_K=0.8, dK_dt=0.8, gamma=0.1), "Turbulent")
+        self.assertEqual(clustering.classify_by_theory(E_K=0.2, dK_dt=0.4, gamma=0.1), "Active")
+        self.assertEqual(clustering.classify_by_theory(E_K=0.2, dK_dt=0.05, gamma=0.6), "Decayed")
+        self.assertEqual(clustering.classify_by_theory(E_K=0.2, dK_dt=0.05, gamma=0.1), "Frozen")
+        self.assertEqual(clustering.classify_by_theory(E_K=0.5, dK_dt=0.2, gamma=0.1), "Critical")
+
     def test_theory_guided_clustering_fallback(self):
         clustering = TheoryGuidedClustering()
         

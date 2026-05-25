@@ -5,6 +5,11 @@ class SociologyAdapter(DomainAdapter):
     """
     Adapter for sociological models (such as demographic dynamics and multi-generational interaction).
     Maps information flow frequency and social pressure indexes to a K-vector and environmental noise.
+    
+    WARNING: This adapter is purely illustrative and serves as a conceptual scaffolding. 
+    The mapping between sociological variables and K-state coordinates is highly metaphorical 
+    and should not be used for quantitative sociological predictions without a rigorous, 
+    domain-validated translation matrix.
     """
     def map_to_K(self, raw_data: dict) -> np.ndarray:
         """

@@ -10,12 +10,28 @@ This framework allows researchers across different fields (e.g., Artificial Inte
 
 ---
 
+## Epistemic Disclaimer
+
+**Important Notice for Researchers:**
+
+This library packages two distinct layers of the **Structural Time Framework (STF)**:
+* **Level A (Ontology Engine):** Models abstract, timeless logical state spaces and checks structural compatibility.
+* **Level B (Dynamics Engine):** Models continuous numerical simulations (such as quartic potential wells) and performs empirical clustering.
+
+These layers operate on **different mathematical objects** ($K$ as a stochastic kernel in Ontology vs. $K$ as a vector in Dynamics). They are complementary conceptual tools, but are **epistemically independent**:
+* Running simulations in the Dynamics Engine **does not prove or validate** the logical conjectures of the Ontology Engine.
+* The Ontology Engine's constraints **do not mathematically validate** the specific numerical design choices (such as the quartic potential formulation or the experienced time metric $T(K)$) in the Dynamics Engine.
+* The `LogicalCompatibilityChecker` does not mathematically prove the *Asymmetry Conjecture*; it only checks if an empirical trajectory is compatible with the conjecture's constraints.
+* The `SociologyAdapter` is purely illustrative. The mapping of sociological variables to $K$-state coordinates is conceptual and metaphorical, not a quantitative prediction tool.
+
+---
+
 ## 1. Core Modules
 
 The library is organized into four main functional modules:
 
 *   **`adapters` (Domain Adapter Layer):** Maps domain-specific raw data (e.g., Transformer cross-layer similarity, demographic population ratios, Neural Network training telemetry) to standardized $K$-state vectors.
-*   **`ontology` (Ontology Engine - Level A):** Manages the Platonist State Space ($S$), Valid Configuration Set ($V$), and verifies the **Asymmetry Conjecture** along behavioral trajectories.
+*   **`ontology` (Ontology Engine - Level A):** Manages the Platonist State Space ($S$), Valid Configuration Set ($V$), and checks compatibility under the **Asymmetry Conjecture** along behavioral trajectories.
 *   **`dynamics` (Dynamics Engine - Level B):** Computes Quartic Potential ($\mathcal{F}(K)$) multi-stability, sweeps parameter bifurcations, simulates gradient flow trajectories using Runge-Kutta 4th Order (RK4), and calculates Bounded Temporal Density ($T(K)$).
 *   **`analytics` (Regime Clustering & Visualization):** Classifies trajectories into five theoretical regimes (Active, Critical, Turbulent, Decayed, Frozen) using KMeans and the decay rate parameter ($\gamma$) to distinguish Frozen and Decayed states.
 

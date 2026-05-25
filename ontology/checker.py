@@ -43,7 +43,7 @@ class LogicalCompatibilityChecker:
 
     def is_compatible(self, K_operator: np.ndarray, system_complexity: float, is_trajectory: bool = True) -> bool:
         """
-        Verifies the Asymmetry Conjecture:
+        Checks logical compatibility under the Asymmetry Conjecture:
         In complex systems (complexity > threshold), perfectly symmetric operators 
         (e.g., zero temporal trajectory derivative or symmetric matrices) are logically
         incompatible and excluded.
