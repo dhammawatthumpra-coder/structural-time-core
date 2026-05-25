@@ -10,7 +10,7 @@
 
 ตัวไลบรารีแบ่งส่วนการทำงานออกเป็น 4 โมดูลหลักตามกรอบทฤษฎีหลัก:
 
-*   **`adapters` (Domain Adapter Layer):** ทำหน้าที่แมปสัญญาณดิบเฉพาะของแต่ละศาสตร์ (เช่น ความคล้ายคลึงข้ามเลเยอร์ของ LLM, ข้อมูลประชากรข้ามช่วงวัย) ให้เป็นพารามิเตอร์เวกเตอร์ $K$-state เชิงสารสนเทศ
+*   **`adapters` (Domain Adapter Layer):** ทำหน้าที่แมปสัญญาณดิบเฉพาะของแต่ละศาสตร์ (เช่น ความคล้ายคลึงข้ามเลเยอร์ของ LLM, ข้อมูลประชากรข้ามช่วงวัย, ข้อมูลความก้าวหน้าการฝึกโครงข่ายประสาทเทียม) ให้เป็นพารามิเตอร์เวกเตอร์ $K$-state เชิงสารสนเทศ
 *   **`ontology` (Ontology Engine - Level A):** จัดการสเปซพ้นเวลา $S$ และเซตความเข้ากันได้ตรรกะ $V$ รวมถึงตัวตรวจสอบ **Asymmetry Conjecture** บนทราเจกทอรีสายพฤติกรรม
 *   **`dynamics` (Dynamics Engine - Level B):** ตัวคำนวณศักย์ Free Energy สมการกำลังสี่ (Quartic Potential), การจำลองวิถีเปลี่ยนรูป $dK/dt$ ด้วย Runge-Kutta 4th Order (RK4) และการคำนวณความหนาแน่นเวลาเชิงประจักษ์ $T(K)$
 *   **`analytics` (Regime Clustering & Visualization):** จัดกลุ่มสภาวะระบบ 5 เรจิม (Active, Critical, Turbulent, Decayed, Frozen) โดยใช้สัมประสิทธิ์การสลายตัว $\gamma$ เข้ามาเป็นตัวแปรช่วยแยกแยะระหว่างสภาวะหยุดนิ่งแบบสมบูรณ์ (Frozen) และแบบสลายตัว (Decayed)
@@ -39,6 +39,7 @@ pip install git+https://github.com/dhammawatthumpra-coder/structural-time-core.g
 import numpy as np
 from structural_time_core import (
     TransformerAdapter,
+    NeuralNetworkTelemetryAdapter,
     LogicalCompatibilityChecker,
     QuarticPotentialSolver,
     GradientFlowIntegrator,
@@ -100,12 +101,58 @@ print("Regimes mapped:", regimes)
 # แสดงผล: ['Decayed', 'Frozen']
 ```
 
+### 3.4 การประยุกต์ใช้กับข้อมูล Telemetry ของ Deep Learning
+การแปลงข้อมูลตัวชี้วัดการเรียนรู้ของโครงข่ายประสาทเทียม (Loss, Accuracy, Weight/Gradient norms) เข้าสู่พารามิเตอร์ $K$:
+
+```python
+from structural_time_core import NeuralNetworkTelemetryAdapter
+
+# กำหนดค่าขีดจำกัดสูงสุดของ Weight norm และ Gradient norm เพื่อใช้สเกลค่า
+adapter = NeuralNetworkTelemetryAdapter(max_weight_norm=100.0, max_grad_norm=10.0)
+
+raw_telemetry = {
+    'train_loss': 0.05,
+    'val_loss': 1.62,
+    'val_accuracy': 0.35,
+    'weight_norm': 74.2,
+    'gradient_norm': 0.12
+}
+
+K = adapter.map_to_K(raw_telemetry)
+print("Complexity, Stability, Error Rate:", K)
+# แสดงผล: [0.742, 0.35, 0.618]
+```
+
 ---
 
-## 4. การรันการทดสอบ (Running Tests)
+## 4. การรันโปรแกรมตัวอย่างและการสร้างกราฟ (Demos & Visualization)
+
+แพกเกจมาพร้อมกับโปรแกรมตัวอย่างที่รันระบบจำลองและสร้างกราฟรายงานผลอัตโนมัติ:
+
+```bash
+# 1. รันการจำลองระดับพื้นฐาน (ศักย์กำลังสี่และวิถีทราเจกทอรี)
+python examples/simulation_demo.py
+
+# 2. รันการวิเคราะห์ข้อมูลจำลอง Deep Learning (Grokking และ Mode Collapse)
+python examples/nn_telemetry_demo.py
+```
+
+กราฟผลลัพธ์จะถูกเซฟในโฟลเดอร์ `examples/` (ประกอบด้วย `potential_well.png`, `trajectory.png`, `regime_clustering.png`, `nn_grokking.png`, `nn_mode_collapse.png` และ `nn_clustering_3d.png`)
+
+---
+
+## 5. การรันการทดสอบ (Running Tests)
 
 สามารถรันชุดการทดสอบ Unit Tests เพื่อตรวจสอบความสมบูรณ์ของสมการและโมดูลทั้งหมดได้ผ่านคำสั่ง:
 
 ```powershell
 python -m unittest discover -s tests -p "test_*.py" -v
 ```
+
+---
+
+## 6. การอ้างอิงเชิงวิชาการ (Citation & Archiving)
+
+หากคุณใช้โปรเจกต์นี้ในงานวิจัยเชิงวิชาการ โปรดอ้างอิงตามรูปแบบที่กำหนดไว้ในไฟล์ `CITATION.cff`:
+
+*   **Zenodo & DOI:** แนะนำให้นักวิจัยเชื่อมโยง Repository นี้เข้ากับ **Zenodo** เพื่อสร้างรหัส **DOI (Digital Object Identifier)** ประจำตัวเวอร์ชันของไลบรารีอย่างเป็นทางการ สำหรับใช้ในการเขียนเอกสารอ้างอิง (Citations) ในงานวิจัยระดับสากล

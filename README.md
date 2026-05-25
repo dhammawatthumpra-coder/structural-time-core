@@ -12,7 +12,7 @@ This framework allows researchers across different fields (e.g., Artificial Inte
 
 The library is organized into four main functional modules:
 
-*   **`adapters` (Domain Adapter Layer):** Maps domain-specific raw data (e.g., LLM cross-layer similarity, demographic population ratios) to standardized $K$-state vectors.
+*   **`adapters` (Domain Adapter Layer):** Maps domain-specific raw data (e.g., Transformer cross-layer similarity, demographic population ratios, Neural Network training telemetry) to standardized $K$-state vectors.
 *   **`ontology` (Ontology Engine - Level A):** Manages the Platonist State Space ($S$), Valid Configuration Set ($V$), and verifies the **Asymmetry Conjecture** along behavioral trajectories.
 *   **`dynamics` (Dynamics Engine - Level B):** Computes Quartic Potential ($\mathcal{F}(K)$) multi-stability, sweeps parameter bifurcations, simulates gradient flow trajectories using Runge-Kutta 4th Order (RK4), and calculates Bounded Temporal Density ($T(K)$).
 *   **`analytics` (Regime Clustering & Visualization):** Classifies trajectories into five theoretical regimes (Active, Critical, Turbulent, Decayed, Frozen) using KMeans and the decay rate parameter ($\gamma$) to distinguish Frozen and Decayed states.
@@ -41,6 +41,7 @@ Once installed, import the modules in Python:
 import numpy as np
 from structural_time_core import (
     TransformerAdapter,
+    NeuralNetworkTelemetryAdapter,
     LogicalCompatibilityChecker,
     QuarticPotentialSolver,
     GradientFlowIntegrator,
@@ -101,12 +102,58 @@ print("Regimes mapped:", regimes)
 # Output: ['Decayed', 'Frozen']
 ```
 
+### 3.4 Deep Learning Telemetry Adaptation
+Maps deep learning training telemetry to standard $K$-state representation:
+
+```python
+from structural_time_core import NeuralNetworkTelemetryAdapter
+
+# Max expected weight norm and gradient norm for scaling
+adapter = NeuralNetworkTelemetryAdapter(max_weight_norm=100.0, max_grad_norm=10.0)
+
+raw_telemetry = {
+    'train_loss': 0.05,
+    'val_loss': 1.62,
+    'val_accuracy': 0.35,
+    'weight_norm': 74.2,
+    'gradient_norm': 0.12
+}
+
+K = adapter.map_to_K(raw_telemetry)
+print("Complexity, Stability, Error Rate:", K)
+# Output: [0.742, 0.35, 0.618]
+```
+
 ---
 
-## 4. Running Unit Tests
+## 4. Running Demos and Visualization
+
+The package contains built-in simulation demos that plot dynamics, experienced time, and temporal regimes:
+
+```bash
+# 1. Basic potential well and trajectory integration demo
+python examples/simulation_demo.py
+
+# 2. Deep learning telemetry mapping demo (Grokking & GAN Mode Collapse)
+python examples/nn_telemetry_demo.py
+```
+
+This generates visualization plots in the `examples/` directory (`potential_well.png`, `trajectory.png`, `regime_clustering.png`, `nn_grokking.png`, `nn_mode_collapse.png`, and `nn_clustering_3d.png`).
+
+---
+
+## 5. Running Unit Tests
 
 Verify package functionality and mathematical constraints:
 
 ```powershell
 python -m unittest discover -s tests -p "test_*.py" -v
 ```
+
+---
+
+## 6. Citation & Archiving
+
+If you use this library in your research, please cite the software using the metadata in the `CITATION.cff` file:
+
+*   **DOI Allocation:** When linked to a **Zenodo** repository, GitHub releases automatically archive and assign a permanent **Digital Object Identifier (DOI)** for academic reference.

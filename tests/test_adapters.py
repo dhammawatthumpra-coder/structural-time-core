@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from structural_time_core.adapters import TransformerAdapter, SociologyAdapter
+from structural_time_core.adapters import TransformerAdapter, SociologyAdapter, NeuralNetworkTelemetryAdapter
 
 class TestAdapters(unittest.TestCase):
     def test_transformer_adapter_mapping(self):
@@ -46,6 +46,28 @@ class TestAdapters(unittest.TestCase):
         # Noise estimation
         noise = adapter.estimate_noise(raw_data)
         self.assertAlmostEqual(noise, 0.1 * 0.8 * 0.6, places=4)
+
+    def test_neural_net_adapter_mapping(self):
+        adapter = NeuralNetworkTelemetryAdapter(max_weight_norm=100.0, max_grad_norm=10.0)
+        raw_data = {
+            'train_loss': 0.1,
+            'val_loss': 0.5,
+            'val_accuracy': 0.85,
+            'weight_norm': 50.0,
+            'gradient_norm': 2.0
+        }
+        
+        K = adapter.map_to_K(raw_data)
+        
+        self.assertIsInstance(K, np.ndarray)
+        self.assertEqual(K.shape, (3,))
+        
+        # Complexity: weight_norm (50.0) / max_weight_norm (100.0) = 0.5
+        self.assertAlmostEqual(K[0], 0.5, places=3)
+        # Stability: val_accuracy (0.85) - gradient_norm (2.0) / max_grad_norm (10.0) = 0.85 - 0.2 = 0.65
+        self.assertAlmostEqual(K[1], 0.65, places=3)
+        # Error rate: val_loss (0.5) / (val_loss + 1.0) = 0.5 / 1.5 = 0.3333
+        self.assertAlmostEqual(K[2], 0.3333, places=3)
 
 if __name__ == '__main__':
     unittest.main()

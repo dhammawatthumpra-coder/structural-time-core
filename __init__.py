@@ -4,7 +4,7 @@ StructuralTime-Core v0.1 (MVP)
 A modular domain-agnostic library implementing the Core Structural Time Ontology and Dynamics framework.
 """
 
-from .adapters import TransformerAdapter, SociologyAdapter
+from .adapters import TransformerAdapter, SociologyAdapter, NeuralNetworkTelemetryAdapter
 from .ontology import StateSpaceManager, LogicalCompatibilityChecker
 from .dynamics import (
     QuarticPotentialSolver,
@@ -19,6 +19,7 @@ __version__ = "0.1.0"
 __all__ = [
     'TransformerAdapter',
     'SociologyAdapter',
+    'NeuralNetworkTelemetryAdapter',
     'StateSpaceManager',
     'LogicalCompatibilityChecker',
     'QuarticPotentialSolver',
