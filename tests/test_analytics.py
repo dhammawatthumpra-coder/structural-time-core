@@ -1,10 +1,10 @@
 import unittest
 import numpy as np
-from structural_time_core.analytics import TheoryGuidedClustering, VisualizationAPI
+from structural_time_core.analytics import HybridRegimeClustering, VisualizationAPI
 
 class TestAnalytics(unittest.TestCase):
     def test_theory_driven_classification(self):
-        clustering = TheoryGuidedClustering()
+        clustering = HybridRegimeClustering()
         self.assertEqual(clustering.classify_by_theory(E_K=0.8, dK_dt=0.8, gamma=0.1), "Turbulent")
         self.assertEqual(clustering.classify_by_theory(E_K=0.2, dK_dt=0.4, gamma=0.1), "Active")
         self.assertEqual(clustering.classify_by_theory(E_K=0.2, dK_dt=0.05, gamma=0.6), "Decayed")
@@ -12,7 +12,7 @@ class TestAnalytics(unittest.TestCase):
         self.assertEqual(clustering.classify_by_theory(E_K=0.5, dK_dt=0.2, gamma=0.1), "Critical")
 
     def test_theory_guided_clustering_fallback(self):
-        clustering = TheoryGuidedClustering()
+        clustering = HybridRegimeClustering()
         
         # Test fallback rules (when fit has not run or has too few samples)
         self.assertEqual(clustering.predict_sample(E_K=0.8, dK_dt=0.8, gamma=0.1), "Turbulent")
@@ -40,7 +40,7 @@ class TestAnalytics(unittest.TestCase):
             samples.append([0.5, 0.22, 0.2])
             
         data = np.array(samples)
-        clustering = TheoryGuidedClustering()
+        clustering = HybridRegimeClustering()
         
         regimes = clustering.fit_predict_regimes(data)
         self.assertTrue(clustering.is_fitted)

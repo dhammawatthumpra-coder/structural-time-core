@@ -20,7 +20,7 @@ from structural_time_core import (
     QuarticPotentialSolver,
     GradientFlowIntegrator,
     BoundedTemporalDensityCalculator,
-    TheoryGuidedClustering,
+    HybridRegimeClustering,
     VisualizationAPI
 )
 
@@ -152,7 +152,7 @@ def run_demo():
     
     dataset = np.vstack([active_data, turbulent_data, decayed_data, frozen_data, critical_data])
     
-    clustering = TheoryGuidedClustering()
+    clustering = HybridRegimeClustering()
     regime_labels = clustering.fit_predict_regimes(dataset)
     
     # Plotting 3D Phase Space of Regimes

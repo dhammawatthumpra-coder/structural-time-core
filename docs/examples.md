@@ -48,7 +48,7 @@ A 3D Phase Space plot representing:
 *   **Y-axis:** Velocity ($dK/dt$)
 *   **Z-axis:** Decay Rate ($\gamma$)
 
-By incorporating the structural decay coefficient ($\gamma$) as the third feature, the **TheoryGuidedClustering** (KMeans) model cleanly separates the **Frozen** and **Decayed** regimes which otherwise overlap on 2D velocity-energy projections.
+By incorporating the structural decay coefficient ($\gamma$) as the third feature, the **HybridRegimeClustering** (KMeans) model cleanly separates the **Frozen** and **Decayed** regimes which otherwise overlap on 2D velocity-energy projections.
 
 ![Clustering Plot](../examples/regime_clustering.png)
 
@@ -59,7 +59,7 @@ By incorporating the structural decay coefficient ($\gamma$) as the third featur
 This plot maps simulated neural network training telemetry (training/validation loss, and validation accuracy) during a **Grokking** transition into the **Core Structural Time** framework:
 *   **Upper Panel:** Shows the classic "grokking" signature where training loss drops immediately, but validation accuracy remains low (Generalization Lag / Overfitting) for a long time before suddenly jumping to 100% generalization.
 *   **Lower Panel:** Maps the metrics to Systemic Energy ($E_K$, representing representation complexity / weight norm), State Velocity ($\|\dot{K}\|$, representing gradients), and experienced Temporal Density $T(K)$.
-*   **Shaded Regions:** Color-coded automatically by the `TheoryGuidedClustering` model, showing the transition from **Active** learning, through a long **Decayed** (overfitting) regime, a sharp **Critical** transition (grokking point), and finally a **Frozen** (stable generalized) state.
+*   **Shaded Regions:** Color-coded automatically by the `HybridRegimeClustering` model, showing the transition from **Active** learning, through a long **Decayed** (overfitting) regime, a sharp **Critical** transition (grokking point), and finally a **Frozen** (stable generalized) state.
 
 ![Grokking Dynamics](../examples/nn_grokking.png)
 

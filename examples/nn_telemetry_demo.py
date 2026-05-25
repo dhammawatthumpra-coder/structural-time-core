@@ -20,7 +20,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from structural_time_core import (
     NeuralNetworkTelemetryAdapter,
     BoundedTemporalDensityCalculator,
-    TheoryGuidedClustering
+    HybridRegimeClustering
 )
 
 # Set styling for premium aesthetics
@@ -214,8 +214,8 @@ def analyze_nn_case(telemetry_data, title, save_prefix):
         
     mapped_features = np.array(mapped_features)
     
-    # 2. Fit Theory-Guided Clustering
-    clustering = TheoryGuidedClustering()
+    # 2. Fit Hybrid Regime Clustering
+    clustering = HybridRegimeClustering()
     regimes = clustering.fit_predict_regimes(mapped_features)
     
     # 3. Create Visualization Plots

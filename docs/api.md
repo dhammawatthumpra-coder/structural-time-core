@@ -23,19 +23,20 @@ raw_telemetry = {
 K_state = adapter.map_to_K(raw_telemetry)
 ```
 
-### `SociologyAdapter`
-Maps social media or demographic generational interactions:
+### `NeuralNetworkTelemetryAdapter`
+Maps training, loss, and weight norms in deep learning models:
 ```python
-from structural_time_core.adapters import SociologyAdapter
+from structural_time_core.adapters import NeuralNetworkTelemetryAdapter
 
-adapter = SociologyAdapter()
+adapter = NeuralNetworkTelemetryAdapter(max_weight_norm=100.0)
 raw_data = {
-    'info_frequency': 0.7,
-    'social_pressure': 0.8,
-    'generation_sizes': [1000, 1500, 800]
+    'train_loss': 0.05,
+    'val_loss': 0.12,
+    'val_accuracy': 0.98,
+    'weight_norm': 45.2,
+    'gradient_norm': 0.15
 }
 K_state = adapter.map_to_K(raw_data)
-noise = adapter.estimate_noise(raw_data)  # Estimated xi
 ```
 
 ---
@@ -116,12 +117,12 @@ T_ops = calc.compute_T_ops(velocity=0.02, equilibrium_distance=0.05)
 
 Groups trajectories into one of the 5 theoretical regimes.
 
-### `TheoryGuidedClustering`
+### `HybridRegimeClustering`
 Classifies states based on Energy ($E_K$), Velocity ($dK/dt$), and Decay ($\gamma$):
 ```python
-from structural_time_core.analytics import TheoryGuidedClustering
+from structural_time_core.analytics import HybridRegimeClustering
 
-clustering = TheoryGuidedClustering()
+clustering = HybridRegimeClustering()
 
 # Fits and maps 5 clusters based on Centers (separates Frozen and Decayed)
 regimes = clustering.fit_predict_regimes(dataset)

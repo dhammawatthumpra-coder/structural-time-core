@@ -13,7 +13,7 @@ The codebase is strictly separated into Level A (timeless logical structures) an
 ```
                   +-------------------------------+
                   |      Domain Adapter Layer     |
-                  |  (Transformer, Sociology, etc)|
+                  |  (Transformer, Neural Net, etc)|
                   +---------------+---------------+
                                   |
                                   v

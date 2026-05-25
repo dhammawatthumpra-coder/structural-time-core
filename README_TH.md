@@ -20,7 +20,7 @@
 * การรันจำลองพลศาสตร์ใน Dynamics Engine **ไม่ได้เป็นการพิสูจน์หรือรับรองความถูกต้อง** ของข้อสมมติเชิงตรรกะในระดับ Ontology Engine
 * ข้อจำกัดในระดับ Ontology Engine **ไม่ได้ช่วยรับรองความถูกต้องทางคณิตศาสตร์** ของการออกแบบเชิงตัวเลขเฉพาะ (เช่น การตั้งสมการศักย์กำลังสี่ หรือการประเมินค่าความหนาแน่นเวลาประจักษ์ $T(K)$) ใน Dynamics Engine
 * คลาส `LogicalCompatibilityChecker` ไม่ได้ทำหน้าที่พิสูจน์ข้อสมมติความไม่สมมาตรทางเวลา (*Asymmetry Conjecture*) ในเชิงคณิตศาสตร์ แต่ทำเพียงตรวจสอบว่าทราเจกทอรีเชิงประจักษ์สอดคล้องกับข้อห้ามเชิงตรรกะของสมมติฐานดังกล่าวหรือไม่
-* ตัวแปลงข้อมูล `SociologyAdapter` ทำงานในฐานะตัวอย่างเชิงเปรียบเปรยและแนวคิดเท่านั้น ไม่ควรนำไปใช้ในการพยากรณ์เชิงปริมาณทางสังคมวิทยาโดยปราศจากเมทริกซ์แปลงค่าเฉพาะที่ผ่านการยอมรับในศาสตร์นั้น ๆ
+* ตัวแปลงข้อมูล `SociologyAdapter` (ซึ่งถูกย้ายไปที่ `examples/sociology_adapter_demo.py`) ทำงานในฐานะตัวอย่างเชิงเปรียบเปรยและแนวคิดเท่านั้น ไม่ควรนำไปใช้ในการพยากรณ์เชิงปริมาณทางสังคมวิทยาโดยปราศจากเมทริกซ์แปลงค่าเฉพาะที่ผ่านการยอมรับในศาสตร์นั้น ๆ
 
 ---
 
@@ -28,7 +28,7 @@
 
 ตัวไลบรารีแบ่งส่วนการทำงานออกเป็น 4 โมดูลหลักตามกรอบทฤษฎีหลัก:
 
-*   **`adapters` (Domain Adapter Layer):** ทำหน้าที่แมปสัญญาณดิบเฉพาะของแต่ละศาสตร์ (เช่น ความคล้ายคลึงข้ามเลเยอร์ของ LLM, ข้อมูลประชากรข้ามช่วงวัย, ข้อมูลความก้าวหน้าการฝึกโครงข่ายประสาทเทียม) ให้เป็นพารามิเตอร์เวกเตอร์ $K$-state เชิงสารสนเทศ
+*   **`adapters` (Domain Adapter Layer):** ทำหน้าที่แมปสัญญาณดิบเฉพาะของแต่ละศาสตร์ (เช่น ความคล้ายคลึงข้ามเลเยอร์ของ LLM, ข้อมูลความก้าวหน้าการฝึกโครงข่ายประสาทเทียม) ให้เป็นพารามิเตอร์เวกเตอร์ $K$-state เชิงสารสนเทศ
 *   **`ontology` (Ontology Engine - Level A):** จัดการสเปซพ้นเวลา $S$ และเซตความเข้ากันได้ตรรกะ $V$ รวมถึงตรวจสอบความเข้ากันได้ภายใต้ **Asymmetry Conjecture** บนทราเจกทอรีสายพฤติกรรม
 *   **`dynamics` (Dynamics Engine - Level B):** ตัวคำนวณศักย์ Free Energy สมการกำลังสี่ (Quartic Potential), การจำลองวิถีเปลี่ยนรูป $dK/dt$ ด้วย Runge-Kutta 4th Order (RK4) และการคำนวณความหนาแน่นเวลาเชิงประจักษ์ $T(K)$
 *   **`analytics` (Regime Clustering & Visualization):** จัดกลุ่มสภาวะระบบ 5 เรจิม (Active, Critical, Turbulent, Decayed, Frozen) โดยใช้สัมประสิทธิ์การสลายตัว $\gamma$ เข้ามาเป็นตัวแปรช่วยแยกแยะระหว่างสภาวะหยุดนิ่งแบบสมบูรณ์ (Frozen) และแบบสลายตัว (Decayed)
@@ -61,7 +61,7 @@ from structural_time_core import (
     LogicalCompatibilityChecker,
     QuarticPotentialSolver,
     GradientFlowIntegrator,
-    TheoryGuidedClustering
+    HybridRegimeClustering
 )
 ```
 
@@ -100,11 +100,11 @@ for step in range(100):
     print(f"Step {step}: K = {K:.4f}")
 ```
 
-### 3.3 การจัดกลุ่มเรจิมด้วยคุณลักษณะ $\gamma$ (Analytics)
+### 3.3 การจัดกลุ่มเรจิมแบบไฮบริด (Hybrid Regime Clustering)
 จำแนกสภาวะพฤติกรรมของเอเจนต์ออกเป็นกลุ่มต่าง ๆ โดยลดอัตราการทับซ้อนระหว่าง Frozen และ Decayed:
 
 ```python
-clustering = TheoryGuidedClustering()
+clustering = HybridRegimeClustering()
 
 # ข้อมูลการสังเกตการณ์: [E_K, dK_dt, gamma]
 # 1. พลังงานและพลศาสตร์ต่ำ แต่ค่าสลายตัวสูญเสียสูง (gamma > 0.4) -> Decayed
@@ -117,6 +117,7 @@ trajectory_data = np.array([
 regimes = clustering.fit_predict_regimes(trajectory_data)
 print("Regimes mapped:", regimes) 
 # แสดงผล: ['Decayed', 'Frozen']
+```
 ```
 
 ### 3.4 การประยุกต์ใช้กับข้อมูล Telemetry ของ Deep Learning

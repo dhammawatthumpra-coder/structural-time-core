@@ -22,7 +22,7 @@ These layers operate on **different mathematical objects** ($K$ as a stochastic 
 * Running simulations in the Dynamics Engine **does not prove or validate** the logical conjectures of the Ontology Engine.
 * The Ontology Engine's constraints **do not mathematically validate** the specific numerical design choices (such as the quartic potential formulation or the experienced time metric $T(K)$) in the Dynamics Engine.
 * The `LogicalCompatibilityChecker` does not mathematically prove the *Asymmetry Conjecture*; it only checks if an empirical trajectory is compatible with the conjecture's constraints.
-* The `SociologyAdapter` is purely illustrative. The mapping of sociological variables to $K$-state coordinates is conceptual and metaphorical, not a quantitative prediction tool.
+* The `SociologyAdapter` (now relocated to `examples/sociology_adapter_demo.py`) is purely illustrative. The mapping of sociological variables to $K$-state coordinates is conceptual and metaphorical, not a quantitative prediction tool.
 
 ---
 
@@ -30,7 +30,7 @@ These layers operate on **different mathematical objects** ($K$ as a stochastic 
 
 The library is organized into four main functional modules:
 
-*   **`adapters` (Domain Adapter Layer):** Maps domain-specific raw data (e.g., Transformer cross-layer similarity, demographic population ratios, Neural Network training telemetry) to standardized $K$-state vectors.
+*   **`adapters` (Domain Adapter Layer):** Maps domain-specific raw data (e.g., Transformer cross-layer similarity, Neural Network training telemetry) to standardized $K$-state vectors.
 *   **`ontology` (Ontology Engine - Level A):** Manages the Platonist State Space ($S$), Valid Configuration Set ($V$), and checks compatibility under the **Asymmetry Conjecture** along behavioral trajectories.
 *   **`dynamics` (Dynamics Engine - Level B):** Computes Quartic Potential ($\mathcal{F}(K)$) multi-stability, sweeps parameter bifurcations, simulates gradient flow trajectories using Runge-Kutta 4th Order (RK4), and calculates Bounded Temporal Density ($T(K)$).
 *   **`analytics` (Regime Clustering & Visualization):** Classifies trajectories into five theoretical regimes (Active, Critical, Turbulent, Decayed, Frozen) using KMeans and the decay rate parameter ($\gamma$) to distinguish Frozen and Decayed states.
@@ -63,7 +63,7 @@ from structural_time_core import (
     LogicalCompatibilityChecker,
     QuarticPotentialSolver,
     GradientFlowIntegrator,
-    TheoryGuidedClustering
+    HybridRegimeClustering
 )
 ```
 
@@ -101,11 +101,11 @@ for step in range(100):
     print(f"Step {step}: K = {K:.4f}")
 ```
 
-### 3.3 Theory-Guided Regime Clustering (Analytics)
+### 3.3 Hybrid Regime Clustering (Analytics)
 Groups trajectory snapshots and distinguishes Frozen from Decayed using the structural decay coefficient ($\gamma$):
 
 ```python
-clustering = TheoryGuidedClustering()
+clustering = HybridRegimeClustering()
 
 # Snapshots format: [E_K, dK_dt, gamma]
 # 1. Low energy/velocity, high decay rate -> Decayed

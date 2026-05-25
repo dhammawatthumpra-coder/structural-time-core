@@ -7,7 +7,13 @@ class LogicalCompatibilityChecker:
     Specifically implements the Asymmetry Conjecture.
     """
     def __init__(self, complexity_threshold: float = 0.7):
+        import warnings
         self.threshold = complexity_threshold
+        warnings.warn(
+            "LogicalCompatibilityChecker checks compatibility under the Asymmetry Conjecture; it is not a mathematical proof of the conjecture.",
+            UserWarning,
+            stacklevel=2
+        )
 
     def calculate_asymmetry(self, K_operator: np.ndarray) -> float:
         """

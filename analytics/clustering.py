@@ -2,9 +2,9 @@ import numpy as np
 from sklearn.cluster import KMeans
 from typing import List, Dict, Any, Union
 
-class TheoryGuidedClustering:
+class HybridRegimeClustering:
     """
-    Theory-Guided Clustering Module (Level B Analytics).
+    Hybrid Regime Clustering Module (Level B Analytics).
     Groups K-state trajectory samples into one of the 5 Temporal Regimes:
       - Active (Normal execution)
       - Critical (Near bifurcation point)
