@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "structural-time-core"
-version = "0.1.3"
+version = "0.1.4"
 description = "A modular, domain-agnostic Python library implementing the Core Structural Time framework."
 readme = "README.md"
 authors = [
